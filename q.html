@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Venus Quiz</title>
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+  }
+  .question {
+   font-weight: bold;
+   background-color: #f2f2f2;
+   padding: 10px;
+   margin: 10px 0;
+   border-radius: 5px;
+  }
+  input[type="radio"] {
+   margin-right: 5px;
+  }
+  #correctQ1:checked ~ input[value="4.5"],
+  #correctQ2:checked ~ input[value="accretion"],
+  #correctQ3:checked ~ input[value="gradual"],
+  #correctQ4:checked ~ input[value="gravity"],
+  #correctQ5:checked ~ input[value="243"],
+  #correctQ6:checked ~ input[value="no"] {
+    color: green;
+    font-weight: bold;
+  }
+ </style>
+</head>
+<body>
+
+ <h1 style="color: #4CAF50;">Venus Quiz</h1>
+
+ <div class="question">
+  <p>Venus formed about how many billion years ago?</p>
+  <input type="radio" name="q1" value="4"> 4 billion years
+  <input type="radio" name="q1" value="4.5" id="correctQ1"> 4.5 billion years 
+  <input type="radio" name="q1" value="5"> 5 billion years
+ </div>
+
+ <div class="question">
+  <p>How did Venus form?</p>
+  <input type="radio" name="q2" value="condensation"> Condensation
+  <input type="radio" name="q2" value="accretion" id="correctQ2"> Accretion
+  <input type="radio" name="q2" value="radiation"> Radiation
+ </div>
+
+ <div class="question">
+  <p>What is accretion?</p>
+  <input type="radio" name="q3" value="cooling"> Cooling
+  <input type="radio" name="q3" value="explosion"> Explosion
+  <input type="radio" name="q3" value="gradual" id="correctQ3"> Gradual accumulation of dust, gas, and other materials in space 
+ </div>
+
+ <div class="question">
+  <p>What played a crucial role in the formation of Venus?</p>
+  <input type="radio" name="q4" value="wind"> Wind
+  <input type="radio" name="q4" value="gravity" id="correctQ4"> Gravity 
+  <input type="radio" name="q4" value="light"> Light
+ </div>
+
+ <div class="question">
+  <p>How long does a day on Venus last?</p>
+  <input type="radio" name="q5" value="225"> 225 Earth days
+  <input type="radio" name="q5" value="243" id="correctQ5"> 243 Earth days 
+  <input type="radio" name="q5" value="260"> 260 Earth days
+ </div>
+
+ <div class="question">
+  <p>Can you live on Venus? Why or why not?</p>
+  <input type="radio" name="q6" value="yes"> Yes
+  <input type="radio" name="q6" value="no" id="correctQ6"> No 
+ </div>
+
+ <script>
+  function calculateScore() {
+   let score = 0;
+
+   if (document.getElementById('correctQ1').checked) score++;
+   if (document.getElementById('correctQ2').checked) score++;
+   if (document.getElementById('correctQ3').checked) score++;
+   if (document.getElementById('correctQ4').checked) score++;
+   if (document.getElementById('correctQ5').checked) score++;
+   if (document.getElementById('correctQ6').checked) score++;
+
+   alert('Your score: ' + score + ' out of 6');
+  }
+ </script>
+
+ <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="calculateScore()">Submit Quiz</button>
+
+</body>
+</html>
