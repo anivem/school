@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adventures of Toto Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            display: none;
+            margin-bottom: 20px;
+        }
+        .next-btn {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="question-container">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div class="feedback" id="feedback"></div>
+            <button class="next-btn" id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Where did Grandfather buy Toto from?",
+                options: ["A pet shop", "A zoo", "A tonga-driver", "A friend"],
+                correctAnswer: 2
+            },
+            {
+                question: "How is Toto's smile described?",
+                options: ["Gentle", "Frightening", "Joyful", "Sad"],
+                correctAnswer: 1
+            },
+            {
+                question: "What was special about Toto's tail?",
+                options: ["It was very short", "It was colorful", "It served as a third hand", "It had a unique pattern"],
+                correctAnswer: 2
+            },
+            {
+                question: "Why was Toto's presence kept a secret from Grandmother initially?",
+                options: ["She didn't like monkeys", "She was afraid of animals", "Grandfather wanted to surprise her", "She was in a bad mood"],
+                correctAnswer: 3
+            },
+            {
+                question: "What did Grandfather suggest Toto could do with the torn blazer?",
+                options: ["Sew it back together", "Use it as a blanket", "Make a rope for escape", "Wear it as a fashion statement"],
+                correctAnswer: 2
+            },
+            {
+                question: "Where was Toto transferred to when he wouldn't let other pets sleep?",
+                options: ["A zoo", "A big cage in the servants' quarters", "Grandfather's room", "The kitchen"],
+                correctAnswer: 1
+            },
+            {
+                question: "How did Toto travel to Saharanpur with Grandfather?",
+                options: ["In a basket", "In a canvas kit-bag", "On a leash", "Freely roaming"],
+                correctAnswer: 1
+            },
+            {
+                question: "What animal did the ticket-collector classify Toto as?",
+                options: ["A dog", "A cat", "A squirrel", "A tortoise"],
+                correctAnswer: 0
+            },
+            {
+                question: "How did Toto almost boil himself alive?",
+                options: ["He jumped into a pot of boiling water", "He turned on the hot water tap", "He climbed into a kettle left on the fire", "He sat too close to the fireplace"],
+                correctAnswer: 2
+            },
+            {
+                question: "Why did Grandfather sell Toto back to the tonga-driver?",
+                options: ["Toto was too mischievous", "Toto was not pretty anymore", "Toto became too large", "Toto missed the tonga-driver"],
+                correctAnswer: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionContainer = document.getElementById('question-container');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const feedbackElement = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-btn');
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const optionLabel = document.createElement('label');
+                const optionInput = document.createElement('input');
+                optionInput.type = 'radio';
+                optionInput.name = 'option';
+                optionInput.value = index;
+                optionLabel.appendChild(optionInput);
+                optionLabel.appendChild(document.createTextNode(option));
+                optionsElement.appendChild(optionLabel);
+            });
+            feedbackElement.style.display = 'none';
+            nextButton.style.display = 'none';
+        }
+
+        function checkAnswer() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (!selectedOption) return;
+            const selectedAnswer = parseInt(selectedOption.value);
+            if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+                feedbackElement.textContent = 'Correct!';
+                feedbackElement.style.color = 'green';
+                nextButton.style.display = 'block';
+            } else {
+                feedbackElement.textContent = 'Wrong answer. Try again.';
+                feedbackElement.style.color = 'red';
+                nextButton.style.display = 'none';
+            }
+            feedbackElement.style.display = 'block';
+        }
+
+        optionsElement.addEventListener('change', checkAnswer);
+
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                questionContainer.innerHTML = '<h2>Quiz completed!</h2>';
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>
